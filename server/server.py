@@ -23,7 +23,7 @@ def broadcast(msg, name):
     :return:
     """
     for person in persons:
-        client = persons.client
+        client = person.client
         client.send(bytes(name + ": ", "utf8") + msg)
 
 
@@ -37,8 +37,8 @@ def client_communication(person):
 
     # get persons name
     name = client.recv(BUFSIZ).decode("utf8")
-    msg = f"{name} has joined the chat"
-    broadcast(msg)
+    msg = bytes(f"{name} has joined the chat", "utf8")
+    broadcast(msg, name)
 
     while True:
         try:
