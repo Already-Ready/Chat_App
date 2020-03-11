@@ -1,5 +1,6 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
+import time
 
 # global constants
 HOST = "localhost"
@@ -42,4 +43,7 @@ receive_thread = Thread(target=receive_messages)
 receive_thread.start()
 
 send_messages("young")
+time.sleep(5)
 send_messages("hello")
+time.sleep(2)
+send_messages("{quit}")
