@@ -49,7 +49,7 @@ def client_communication(person):
                 client.close()
                 persons.remove(person)
                 print(f"[DISCONNECTED] {name} disconnected")
-                broadcast(f"{name} has left the chat...", "")
+                broadcast(bytes(f"{name} has left the chat...", "utf8"), "")
                 break
             else:
                 broadcast(msg, name+": ")
@@ -74,7 +74,7 @@ def wait_for_connection():
             print(f"[CONNECTION] {addr} connected to the server {time.time()}")
             Thread(target=client_communication, args=(person,)).start()
         except Exception as e:
-            print("[EXCEPTION]",e)
+            print("[EXCEPTION]", e)
             run = False
 
     print("SERVER CRASHED")
