@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>TEST</h1>
+<button id="test" type="button" class="btn btn-primary btn-lg">Large button</button>
+
+<script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}
