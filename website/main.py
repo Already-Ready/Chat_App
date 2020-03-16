@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, session
+from client import Client
 
 NAME_KEY = "name"
 
@@ -8,9 +9,12 @@ app.secret_key = "hello"
 
 
 
-# @app.route("/login")
-# def login():
-#     return render_template("login.html")
+@app.route("/login", methods=["POST","GET"])
+def login():
+    if request.method == "POST":
+        session[NAME_KEY] = request.form["inputname"]
+        return redirect(url_for("home"))
+    return render_template("login.html")
 
 @app.route("/logout")
 def logout():
@@ -21,12 +25,12 @@ def logout():
 @app.route("/")
 @app.route("/home")
 def home():
-    # if NAME_KEY not in session:
-    #     return redirect(url_for("login"))
+    if NAME_KEY not in session:
+        return redirect(url_for("login"))
 
-    # name = session[NAME_KEY]
-    return render_template("index.html")
+    return render_template("index.html", {"login":True, "session": session})
 
+@app.route("/run")
 def run():
     print("clicked")
 
