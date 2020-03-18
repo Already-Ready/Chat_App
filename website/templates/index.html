@@ -3,13 +3,11 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-{% if login %}
-{% block messageGreen %} {{session["name"]}} logged in!{% endblock %}
-{% endif %}
 
-
-<h1>TEST</h1>
-<form>
-    <button id="test" type="button" class="btn btn-primary btn-lg">Large button</button>
-</form>
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Message" aria-label="Message" id="msg">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" id="sendBtn">Send</button>
+  </div>
+</div>
 {% endblock %}
