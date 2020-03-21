@@ -61,7 +61,8 @@ def home():
 
     return render_template("index.html", **{"login":True, "session": session})
 
-@app.route("/run", methods=["GET"])
+
+@app.route("/send_message", methods=["GET"])
 def send_message():
     """
     called from Jquery to send messages
@@ -77,7 +78,7 @@ def send_message():
     return "none"
 
 
-@app.route("get_messages")
+@app.route("/get_messages")
 def get_messages():
     return jsonify({"messages":messages})
 
@@ -89,14 +90,14 @@ def update_messages():
     update the local list of messages
     :return: None
     """
-    msgs = []
+    global messages
     run = True
     while run:
         time.sleep(0.1) # update every 1/10 of a second
         if not client: continue
 
         new_messages = client.get_messages() # get any new messages from client
-        msgs.extend(new_messages) # add to local list of messages
+        messages.extend(new_messages) # add to local list of messages
 
         for msg in new_messages: # display new messages
             if msg == "{quit}":
@@ -105,6 +106,6 @@ def update_messages():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
     Thread(target=update_messages).start()
+    app.run(debug=True)
 
