@@ -7,24 +7,28 @@ $(function() {
 
             });
 
+    });
+
 });
 
-window.addEventListener("load", function(){
+window.onload = function (){
     var update_loop = setInterval(update, 100);
     update()
-});
+};
 
 
 function update() {
     fetch('/get_messages')
             .then(function (response) {
-                return response.text();
+                return response.json();
             }).then(function (text) {
-                console.log('GET response text:');
-                document.getElementById("test").innerHTML = text; // Print the greeting as text
+                var messages = "";
+                for (value of text["messages"]){
+                    messages  =  messages + "<br >" + value
+                }
+                document.getElementById("test").innerHTML = messages
             });
-            return false;
-        });
-}
+};
+
 
 
